@@ -1,69 +1,57 @@
 <%-- 
     Document   : index
-    Created on : 30-Aug-2017, 2:20:00 PM
-    Author     : Ariel
+    Created on : 2017-08-23, 13:45:07
+    Author     : A.Sashcov
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" type="text/css" href="css/cafeplusplus.css">
-        <title>Cafe++ - index</title>
-    </head>
-    <body>
-        <h1>Cafe++ par Ariel Sashcov & Mohamed Cherifi</h1>
+<!--HEADER PAR JSPF-->
 
-        <div id="main">
-            <!--<div id="header">
-                <div id="widgetBar">
-
-                    <div class="headerWidget">
-                        [ language toggle ]
+            <div class="col-sm-4" >
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <b>Café Plus Plus</b><br />
                     </div>
-
-                    <div class="headerWidget">
-                        [ shopping cart widget ]
+                    <div class="panel-body">
+                        <p>Bienvenue à notre site web!</p>
                     </div>
-
-                </div>
-
-                <a href="#">
-                    <img src="#" id="logo" alt="Cafe++ logo">
-                </a>
-
-                <img src="#" id="logoText" alt="Cafe++">
-            </div>-->
-
-            <div id="indexLeftColumn">
-                <div id="welcomeText">
-                    <p>[ welcome text ]</p>
                 </div>
             </div>
 
-            <div id="indexRightColumn">
-                <div class="categoryBox">
-                    <a href="categorie.jsp">
-                        <span class="categoryLabelText">Espresso</span>
-                    </a>
-                </div>
-                <div class="categoryBox">
-                    <a href="categorie.jsp">
-                        <span class="categoryLabelText">CafÃ© BrassÃ©</span>
-                    </a>
-                </div>
-                <div class="categoryBox">
-                    <a href="categorie.jsp">
-                        <span class="categoryLabelText">CafÃ© AromatisÃ©</span>
-                    </a>
+            <div class="col-sm-8">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <a href="#">
+                            <span class="categoryLabelText">Espresso</span>
+                        </a>
+                    </div>
+                    <div class="panel-body">
+                        <p>Description</p>
+                    </div>
+                    <div class="panel-heading">
+                        <a href="#">
+                            <span class="categoryLabelText">Café Brassé</span>
+                        </a>
+                    </div>
+                    <div class="panel-body">
+                        <p>Description</p>
+                    </div>
+                    <div class="panel-heading">
+                        <a href="#">
+                            <span class="categoryLabelText">Café Aromatisé</span>
+                        </a>
+                    </div>
+                    <div class="panel-body">
+                        <p>Description</p>
+                    </div>
+                    <div class="panel-heading">
+                        <a href="#">
+                            <span class="categoryLabelText">Autres</span>
+                        </a>
+                    </div>
+                    <div class="panel-body">
+                        <p>Description</p>
+                    </div>
                 </div>
             </div>
 
-            <!--<div id="footer">
-                <hr>
-                <p id="footerText">[ footer text ]</p>
-            </div>-->
-        </div>
-    </body>
-</html>
+<!--FOOTER PAR JSPF-->
