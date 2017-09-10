@@ -1,7 +1,7 @@
 <%-- 
     Document   : index
     Created on : 30-Aug-2017, 2:20:00 PM
-    Author     : Mohamed
+    Author     : Ariel
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -13,7 +13,7 @@
         <title>Cafe++ - index</title>
     </head>
     <body>
-        <h1>Cafe++ par Ariel sashcov & Mohamed Cherifi</h1>
+        <h1>Cafe++ par Ariel Sashcov & Mohamed Cherifi</h1>
 
         <div id="main">
             <!--<div id="header">
