@@ -15,7 +15,7 @@
     </head>
     <body>
         <h1>Hello World!</h1>
-        <!<sql:query var="result" dataSource="jdbc/cafePlusPlus">
+        <sql:query var="result" dataSource="jdbc/cafePlusPlus">
             SELECT * FROM categorie, produit WHERE categorie.id = produit.categorie_id
         </sql:query>
             
@@ -34,6 +34,7 @@
                     </c:forEach>
                 </tr>
             </c:forEach>
+        </table>
         </table>
 </table>
     </body>
