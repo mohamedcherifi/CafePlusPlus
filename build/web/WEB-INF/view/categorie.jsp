@@ -9,6 +9,16 @@
     SELECT * FROM categorie
 </sql:query>
 
+<sql:query var="selectedCategory" dataSource="jdbc/cafePlusPlus">
+    SELECT name FROM categorie WHERE id = ?
+    <sql:param value="${pageContext.request.queryString}"/>
+</sql:query>
+
+<sql:query var="categoryProducts" dataSource="jdbc/cafePlusPlus">
+    SELECT * FROM produit WHERE categorie_id = ?
+    <sql:param value="${pageContext.request.queryString}"/>
+</sql:query>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
     "http://www.w3.org/TR/html4/loose.dtd">
@@ -53,7 +63,7 @@
                         <c:when test="${categories.id == pageContext.request.queryString}">
                             <div class="categoryButton" id="selectedCategory">
                                 <span class="categoryText">
-                                    ${category.nom}
+                                    ${categories.nom}
                                 </span>
                             </div>
                         </c:when>
@@ -84,84 +94,111 @@
                 </a>
             </div>-->
 
-            <div id="categoryRightColumn">
-                <p id="categoryTitle">[ selected category ]</p>
+                <div id="categoryRightColumn">
+                    <p id="categoryTitle">${selectedCategory.rows[0].nom}</p>
 
-                <table id="productTable">
-                    <tr>
-                        <td class="lightBlue">
-                            <img src="#" alt="product image">
-                        </td>
-                        <td class="lightBlue">
-                            [ product name ]
-                            <br>
-                            <span class="smallText">[ product description ]</span>
-                        </td>
-                        <td class="lightBlue">[ price ]</td>
-                        <td class="lightBlue">
-                            <form action="#" method="post">
-                                <input type="submit" value="purchase button">
-                            </form>
-                        </td>
-                    </tr>
+                    <table id="productTable">
+                        <c:forEach var="product" items="${categoryProducts.rows}" varStatus="iter">
 
-                    <tr>
-                        <td class="white">
-                            <img src="#" alt="product image">
-                        </td>
-                        <td class="white">
-                            [ product name ]
-                            <br>
-                            <span class="smallText">[ product description ]</span>
-                        </td>
-                        <td class="white">[ price ]</td>
-                        <td class="white">
-                            <form action="#" method="post">
-                                <input type="submit" value="purchase button">
-                            </form>
-                        </td>
-                    </tr>
+                            <tr class="${((iter.index % 2) == 0) ? 'lightBlue' : 'white'}">
+                                <td>
+                                    <img src="${initParam.cheminImageProduits}${product.nom}.png"
+                                         alt="${product.name}">
+                                </td>
+                                <td>
+                                    ${product.name}
+                                    <br>
+                                    <span class="smallText">${product.description}</span>
+                                </td>
+                                <td>
+                                    &euro; ${product.prix} / unit
+                                </td>
+                                <td>
+                                    <form action="addToCart" method="post">
+                                        <input type="hidden"
+                                               name="productId"
+                                               value="${product.id}">
+                                        <input type="submit"
+                                               value="add to cart">
+                                    </form>
+                                </td>
+                            </tr>
 
-                    <tr>
-                        <td class="lightBlue">
-                            <img src="#" alt="product image">
-                        </td>
-                        <td class="lightBlue">
-                            [ product name ]
-                            <br>
-                            <span class="smallText">[ product description ]</span>
-                        </td>
-                        <td class="lightBlue">[ price ]</td>
-                        <td class="lightBlue">
-                            <form action="#" method="post">
-                                <input type="submit" value="purchase button">
-                            </form>
-                        </td>
-                    </tr>
+                        </c:forEach>
+                        <!--<tr>
+                            <td class="lightBlue">
+                                <img src="#" alt="product image">
+                            </td>
+                            <td class="lightBlue">
+                                [ product name ]
+                                <br>
+                                <span class="smallText">[ product description ]</span>
+                            </td>
+                            <td class="lightBlue">[ price ]</td>
+                            <td class="lightBlue">
+                                <form action="#" method="post">
+                                    <input type="submit" value="purchase button">
+                                </form>
+                            </td>
+                        </tr>
+    
+                        <tr>
+                            <td class="white">
+                                <img src="#" alt="product image">
+                            </td>
+                            <td class="white">
+                                [ product name ]
+                                <br>
+                                <span class="smallText">[ product description ]</span>
+                            </td>
+                            <td class="white">[ price ]</td>
+                            <td class="white">
+                                <form action="#" method="post">
+                                    <input type="submit" value="purchase button">
+                                </form>
+                            </td>
+                        </tr>
+    
+                        <tr>
+                            <td class="lightBlue">
+                                <img src="#" alt="product image">
+                            </td>
+                            <td class="lightBlue">
+                                [ product name ]
+                                <br>
+                                <span class="smallText">[ product description ]</span>
+                            </td>
+                            <td class="lightBlue">[ price ]</td>
+                            <td class="lightBlue">
+                                <form action="#" method="post">
+                                    <input type="submit" value="purchase button">
+                                </form>
+                            </td>
+                        </tr>
+    
+                        <tr>
+                            <td class="white">
+                                <img src="#" alt="product image">
+                            </td>
+                            <td class="white">
+                                [ product name ]
+                                <br>
+                                <span class="smallText">[ product description ]</span>
+                            </td>
+                            <td class="white">[ price ]</td>
+                            <td class="white">
+                                <form action="#" method="post">
+                                    <input type="submit" value="purchase button">
+                                </form>
+                            </td>
+                        </tr>-->
+                    </table>
+                </div>
 
-                    <tr>
-                        <td class="white">
-                            <img src="#" alt="product image">
-                        </td>
-                        <td class="white">
-                            [ product name ]
-                            <br>
-                            <span class="smallText">[ product description ]</span>
-                        </td>
-                        <td class="white">[ price ]</td>
-                        <td class="white">
-                            <form action="#" method="post">
-                                <input type="submit" value="purchase button">
-                            </form>
-                        </td>
-                    </tr>
-                </table>
+                <!--<div id="footer">
+                    <hr>
+                    <p id="footerText">[ footer text ]</p>
+                </div>-->
             </div>
-
-            <!--<div id="footer">
-                <hr>
-                <p id="footerText">[ footer text ]</p>
-            </div>-->
-        </div>
     </body>
 </html>
