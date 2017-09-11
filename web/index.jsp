@@ -1,3 +1,4 @@
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql"%>
 <%-- 
     Document   : index
@@ -26,7 +27,18 @@
 
             <div class="col-sm-8">
                 <div class="panel panel-default">
-                    <div class="panel-heading">
+                    <c:forEach var="categories" items="${categories.rows}">
+                        <div class="panel-heading">
+                        <a href="category?${categories.id}">
+
+                            <span class="categoryLabelText">${categories.nom}</span>
+
+                            <img src="${initParam.cheminImageCategorie}${categories.nom}.jpg"
+                                 alt="${categories.nom}">
+                        </a>
+                    </div>
+                    </c:forEach>
+                    <!--<div class="panel-heading">
                         <a href="#">
                             <span class="categoryLabelText">Espresso</span>
                         </a>
@@ -57,7 +69,7 @@
                     </div>
                     <div class="panel-body">
                         <p>Description</p>
-                    </div>
+                    </div>-->
                 </div>
             </div>
 

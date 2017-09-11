@@ -1,8 +1,13 @@
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql"%>
 <%-- 
     Document   : categorie
     Created on : 30-Aug-2017, 2:45:30 PM
     Author     : Mohamed
 --%>
+<sql:query var="categories" dataSource="jdbc/affablebean">
+    SELECT * FROM categorie
+</sql:query>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
@@ -41,7 +46,28 @@
             </div>-->
 
             <div id="categoryLeftColumn">
-                <div class="categoryButton" id="selectedCategory">
+
+                <c:forEach var="categories" items="${categories.rows}">
+
+                    <c:choose>
+                        <c:when test="${categories.id == pageContext.request.queryString}">
+                            <div class="categoryButton" id="selectedCategory">
+                                <span class="categoryText">
+                                    ${category.nom}
+                                </span>
+                            </div>
+                        </c:when>
+                        <c:otherwise>
+                            <a href="category?${categories.id}" class="categoryButton">
+                                <div class="categoryText">
+                                    ${categories.nom}
+                                </div>
+                            </a>
+                        </c:otherwise>
+                    </c:choose>
+
+                </c:forEach>
+                <!--<div class="categoryButton" id="selectedCategory">
                     <span class="categoryText">dairy</span>
                 </div>
 
@@ -56,7 +82,7 @@
                 <a href="#" class="categoryButton">
                     <span class="categoryText">fruit & veg</span>
                 </a>
-            </div>
+            </div>-->
 
             <div id="categoryRightColumn">
                 <p id="categoryTitle">[ selected category ]</p>
