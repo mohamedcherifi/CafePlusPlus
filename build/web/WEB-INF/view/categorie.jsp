@@ -5,7 +5,7 @@
     Created on : 30-Aug-2017, 2:45:30 PM
     Author     : Mohamed
 --%>
-<sql:query var="categories" dataSource="jdbc/affablebean">
+<sql:query var="categories" dataSource="jdbc/cafePlusPlus">
     SELECT * FROM categorie
 </sql:query>
 
