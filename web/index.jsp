@@ -1,18 +1,25 @@
+<%@taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql"%>
 <%-- 
     Document   : index
     Created on : 2017-08-23, 13:45:07
     Author     : A.Sashcov
 --%>
+<sql:query var="categories" dataSource="jdbc/cafePlusPlus">
+    SELECT * FROM categorie
+</sql:query>
 
 <!--HEADER PAR JSPF-->
 
             <div class="col-sm-4" >
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <b>Café Plus Plus</b><br />
+                        <b>Caf? Plus Plus</b><br />
                     </div>
                     <div class="panel-body">
-                        <p>Bienvenue à notre site web!</p>
+                        <p>Bienvenue ? notre site web!</p>
+                        <!-- test to access context parameters -->
+                        categoryImagePath: ${initParam.categoryImagePath}
+                        productImagePath: ${initParam.productImagePath}
                     </div>
                 </div>
             </div>
@@ -29,7 +36,7 @@
                     </div>
                     <div class="panel-heading">
                         <a href="#">
-                            <span class="categoryLabelText">Café Brassé</span>
+                            <span class="categoryLabelText">Caf? Brass?</span>
                         </a>
                     </div>
                     <div class="panel-body">
@@ -37,7 +44,7 @@
                     </div>
                     <div class="panel-heading">
                         <a href="#">
-                            <span class="categoryLabelText">Café Aromatisé</span>
+                            <span class="categoryLabelText">Caf? Aromatis?</span>
                         </a>
                     </div>
                     <div class="panel-body">
