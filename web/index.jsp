@@ -11,66 +11,71 @@
 
 <!--HEADER PAR JSPF-->
 
-            <div class="col-sm-4" >
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <b>Caf? Plus Plus</b><br />
-                    </div>
-                    <div class="panel-body">
-                        <p>Bienvenue ? notre site web!</p>
-                        <!-- test to access context parameters -->
-                        categoryImagePath: ${initParam.categoryImagePath}
-                        productImagePath: ${initParam.productImagePath}
-                    </div>
-                </div>
+<div class="col-sm-4" >
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <b>Caf? Plus Plus</b><br />
+        </div>
+        <div class="panel-body">
+            <p>Bienvenue ? notre site web!</p>
+            <!-- test to access context parameters -->
+            categoryImagePath: ${initParam.categoryImagePath}
+            productImagePath: ${initParam.productImagePath}
+        </div>
+    </div>
+</div>
+
+<div class="col-sm-8">
+    <div class="panel panel-default">
+        <c:forEach var="categories" items="${categories.rows}">
+            <div class="panel-heading">
+                <a href="categories?${categories.id}">
+
+                    <span class="categoryLabelText">${categories.nom}</span>
             </div>
 
-            <div class="col-sm-8">
-                <div class="panel panel-default">
-                    <c:forEach var="categories" items="${categories.rows}">
-                        <div class="panel-heading">
-                        <a href="categories?${categories.id}">
+                            <!--<img src="${initParam.cheminImageCategorie}${categories.nom}.png"
+                                 alt="${categories.nom}">-->
+            </a>
 
-                            <span class="categoryLabelText">${categories.nom}</span>
-
-                            <img src="${initParam.cheminImageCategorie}${categories.nom}.png"
-                                 alt="${categories.nom}">
-                        </a>
-                    </div>
-                    </c:forEach>
-                    <!--<div class="panel-heading">
-                        <a href="#">
-                            <span class="categoryLabelText">Espresso</span>
-                        </a>
-                    </div>
-                    <div class="panel-body">
-                        <p>Description</p>
-                    </div>
-                    <div class="panel-heading">
-                        <a href="#">
-                            <span class="categoryLabelText">Caf? Brass?</span>
-                        </a>
-                    </div>
-                    <div class="panel-body">
-                        <p>Description</p>
-                    </div>
-                    <div class="panel-heading">
-                        <a href="#">
-                            <span class="categoryLabelText">Caf? Aromatis?</span>
-                        </a>
-                    </div>
-                    <div class="panel-body">
-                        <p>Description</p>
-                    </div>
-                    <div class="panel-heading">
-                        <a href="#">
-                            <span class="categoryLabelText">Autres</span>
-                        </a>
-                    </div>
-                    <div class="panel-body">
-                        <p>Description</p>
-                    </div>-->
-                </div>
+            <div class="panel-body">
+                <p><img src="${initParam.cheminImageCategorie}${categories.nom}.png"
+                        alt="${categories.nom}"></p>
             </div>
+    </c:forEach>
+    <!--<div class="panel-heading">
+        <a href="#">
+            <span class="categoryLabelText">Espresso</span>
+        </a>
+    </div>
+    <div class="panel-body">
+        <p>Description</p>
+    </div>
+    <div class="panel-heading">
+        <a href="#">
+            <span class="categoryLabelText">Caf? Brass?</span>
+        </a>
+    </div>
+    <div class="panel-body">
+        <p>Description</p>
+    </div>
+    <div class="panel-heading">
+        <a href="#">
+            <span class="categoryLabelText">Caf? Aromatis?</span>
+        </a>
+    </div>
+    <div class="panel-body">
+        <p>Description</p>
+    </div>
+    <div class="panel-heading">
+        <a href="#">
+            <span class="categoryLabelText">Autres</span>
+        </a>
+    </div>
+    <div class="panel-body">
+        <p>Description</p>
+    </div>-->
+</div>
+</div>
 
 <!--FOOTER PAR JSPF-->
