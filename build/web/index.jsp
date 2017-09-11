@@ -34,12 +34,12 @@
                     <span class="categoryLabelText">${categories.nom}</span>
             </div>
 
-                            <!--<img src="${initParam.cheminImageCategorie}${categories.nom}.png"
+                            <!--<img src="${initParam.cheminImageCategorie}${categories.image}.png"
                                  alt="${categories.nom}">-->
             </a>
 
             <div class="panel-body">
-                <p><img src="${initParam.cheminImageCategorie}${categories.nom}.png"
+                <p><img src="${initParam.cheminImageCategorie}${categories.image}.png"
                         alt="${categories.nom}"></p>
             </div>
     </c:forEach>
