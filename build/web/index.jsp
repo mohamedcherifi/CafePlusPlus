@@ -29,7 +29,7 @@
     <div class="panel panel-default">
         <c:forEach var="categories" items="${categories.rows}">
             <div class="panel-heading">
-                <a href="categories?${categories.id}">
+                <a href="view/categorie?${categories.id}">
 
                     <span class="categoryLabelText">${categories.nom}</span>
             </div>
