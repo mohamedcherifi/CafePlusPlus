@@ -29,13 +29,11 @@
     <div class="panel panel-default">
         <c:forEach var="categories" items="${categories.rows}">
             <div class="panel-heading">
-                <a href="view/categorie?${categories.id}">
+                <a href="categorie?${categories.id}">
 
                     <span class="categoryLabelText">${categories.nom}</span>
             </div>
 
-                            <!--<img src="${initParam.cheminImageCategorie}${categories.image}.png"
-                                 alt="${categories.nom}">-->
             </a>
 
             <div class="panel-body">

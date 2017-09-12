@@ -39,27 +39,27 @@ public class ControllerServlet extends HttpServlet {
         String userPath = request.getServletPath();
 
         // if category page is requested
-        if (userPath.equals("/categorieBS")) {
+        if (userPath.equals("/categorie")) {
             // TODO: Implement category request
 
         // if cart page is requested
-        } else if (userPath.equals("/ajouterPanierBS")) {
+        } else if (userPath.equals("/ajouterPanier")) {
             // TODO: Implement cart page request
 
-            userPath = "/panierBS";
+            userPath = "/panier";
 
         // if checkout page is requested
-        } else if (userPath.equals("/passerLaCommandeBS")) {
+        } else if (userPath.equals("/passerLaCommande")) {
             // TODO: Implement checkout page request
 
         // if user switches language
-        } else if (userPath.equals("/selectionnerLaLangueBS")) {
+        } else if (userPath.equals("/selectionnerLaLangue")) {
             // TODO: Implement language request
 
         }
 
         // use RequestDispatcher to forward request internally
-        String url = "/WEB-INF/viewBS" + userPath + ".jsp";
+        String url = "/WEB-INF/view" + userPath + ".jsp";
 
         try {
             request.getRequestDispatcher(url).forward(request, response);
@@ -82,22 +82,22 @@ public class ControllerServlet extends HttpServlet {
         String userPath = request.getServletPath();
 
         // if addToCart action is called
-        if (userPath.equals("/ajouterPanierBS")) {
+        if (userPath.equals("/ajouterPanier")) {
             // TODO: Implement add product to cart action
 
         // if updateCart action is called
-        } else if (userPath.equals("/majPanierBS")) {
+        } else if (userPath.equals("/majPanier")) {
             // TODO: Implement update cart action
 
         // if purchase action is called
-        } else if (userPath.equals("/acheterBS")) {
+        } else if (userPath.equals("/acheter")) {
             // TODO: Implement purchase action
 
-            userPath = "/confirmationBS";
+            userPath = "/confirmation";
         }
 
         // use RequestDispatcher to forward request internally
-        String url = "/WEB-INF/viewBS" + userPath + ".jsp";
+        String url = "/WEB-INF/view" + userPath + ".jsp";
 
         try {
             request.getRequestDispatcher(url).forward(request, response);

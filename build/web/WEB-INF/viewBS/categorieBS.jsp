@@ -53,23 +53,7 @@
 
             </div>
 
-            <!--<div id="nav nav-pills nav-stacked">
-                <div class="categoryButton">
-                    <span class="categoryText">dairy</span>
-                </div>
-
-                <a href="#" class="categoryButton">
-                    <span class="categoryText">meats</span>
-                </a>
-
-                <a href="#" class="categoryButton">
-                    <span class="categoryText">bakery</span>
-                </a>
-
-                <a href="#" class="categoryButton">
-                    <span class="categoryText">fruit & veg</span>
-                </a>
-            </div>-->
+      
 
             <div id="" class="panel">
                 <p class="panel panel-primary" style="float: right;margin: -34px 180px 0 0;font-size: x-large;padding: 7px;">[ selected category ]</p>
@@ -145,10 +129,7 @@
                 </table>
             </div>
 
-            <!--<div id="footer">
-                <hr>
-                <p id="footerText">[ footer text ]</p>
-            </div>-->
+           
         </div>
     </body>
 </html>
