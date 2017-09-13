@@ -23,13 +23,13 @@
                 
                  <div class="panel-heading">
                      
-                     <a href="#"><img src="img/logo-cpp.png" id="logo" alt="Café Plus Pluss"></a>
+                     <a href="#"><img src="img/logo-cpp.png" id="logo" alt="Café Plus Plus"></a>
                      
                     <ul class="nav nav-pills pull-right">
 
                        <li><a href="#">Changer la langue</a></li>
                        <li><a href="#">Passer la commande</a></li>
-                       <li><a href="#">Mon panier<span class="badge">2</span></a></li>
+                       <li><a href="#"><span class="glyphicon glyphicon-shopping-cart"></span> Mon panier <span class="label label-primary">0</span> </a></li>
                     </ul>
                  </div>
             </div>

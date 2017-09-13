@@ -3,7 +3,6 @@
 <%-- 
     Document   : categorie
     Created on : 30-Aug-2017, 2:45:30 PM
-    Author     : Mohamed
 --%>
 <sql:query var="categories" dataSource="jdbc/cafePlusPlus">
     SELECT * FROM categorie
@@ -14,13 +13,13 @@
     <sql:param value="${pageContext.request.queryString}"/>
 </sql:query>
 
-<sql:query var="categoryProducts" dataSource="jdbc/cafePlusPlus">
+<sql:query var="categorieProduits" dataSource="jdbc/cafePlusPlus">
     SELECT * FROM produit WHERE categorie_id = ?
     <sql:param value="${pageContext.request.queryString}"/>
 </sql:query>
 
     
-    <div class="col-md-3">
+    <div class="col-md-3" style="padding-top:10%;">
         <div class="panel">
             <ul class="nav nav-pills nav-stacked">
                 <c:forEach var="categories" items="${categories.rows}">
@@ -42,18 +41,13 @@
 
     </div>
     
-    <div id="" class="panel">
-        
-    </div>
-    
-            <div id="categoryLeftColumn">
-
+                
                 <c:forEach var="categories" items="${categories.rows}">
 
                     <c:choose>
                         <c:when test="${categories.id == pageContext.request.queryString}">
                             <div class="categoryButton" id="selectedCategory">
-                                <span class="categoryText">
+                                <span class="panel panel-primary">
                                     ${categories.nom}
                                 </span>
                             </div>
@@ -68,33 +62,38 @@
                     </c:choose>
 
                 </c:forEach>
+               
 
-                <div id="categoryRightColumn">
-                    <p id="categoryTitle">${selectedCategory.rows[0].nom}</p>
+                
+                        
+                    
+                    <div  class="panel panel-primary">
+                        <div style="padding-right: 155px; font-size: 200%;" class="panel-heading"><strong>${selectedCategory.rows[0].nom}</strong></div>
+                    </div>
 
-                    <table id="productTable">
-                        <c:forEach var="product" items="${categoryProducts.rows}" varStatus="iter">
+                    <table style="width: 580px; text-align: left;" class="table table-condensed table-striped  table-hover">
+                        <c:forEach var="produit" items="${categorieProduits.rows}" varStatus="iter">
 
-                            <tr class="${((iter.index % 2) == 0) ? 'lightBlue' : 'white'}">
+                            <tr style="height: 100px" class="${((iter.index % 2) == 0) ? 'lightBlue' : 'white'} ">
                                 <td>
-                                    <img src="${initParam.cheminImageProduits}${product.nom}.png"
-                                         alt="${product.name}">
+                                    <img src="${initParam.cheminImageProduits}${produit.image}.png"
+                                         alt="${produit.nom}">
                                 </td>
                                 <td>
-                                    ${product.name}
+                                    <strong>${produit.nom}</strong>
                                     <br>
-                                    <span class="smallText">${product.description}</span>
+                                    <span class="smallText">${produit.description}</span>
+                                </td>
+                                <td class="text-align: left;">
+                                    ${produit.prix}$ /unité
                                 </td>
                                 <td>
-                                    &euro; ${product.prix} / unit
-                                </td>
-                                <td>
-                                    <form action="addToCart" method="post">
+                                    <form action="addToCart" method="post" >
                                         <input type="hidden"
                                                name="productId"
-                                               value="${product.id}">
-                                        <input type="submit"
-                                               value="add to cart">
+                                               value="${produit.id}">
+                                        <input type="submit" class="btn btn-primary"
+                                               value="Ajouter au panier">
                                     </form>
                                 </td>
                             </tr>
@@ -102,7 +101,7 @@
                         </c:forEach>
                         
                     </table>
-                </div>
+                
 
-            </div>
+            
 
