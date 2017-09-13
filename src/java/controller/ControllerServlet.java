@@ -5,13 +5,16 @@
  */
 package controller;
 
+import entity.Categorie;
+import entity.Produit;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.ejb.EJB;
+import session.CategorieFacade;
 
 /**
  *
@@ -24,6 +27,19 @@ import javax.servlet.http.HttpServletResponse;
 
 
 public class ControllerServlet extends HttpServlet {
+    
+    @EJB
+    private CategorieFacade categorieFacade;
+    Categorie categorieSelectionne;
+    Object produitsParCategorie;
+    
+
+    @Override
+     public void init() throws ServletException {
+
+        // store category list in servlet context
+        getServletContext().setAttribute("categories", categorieFacade.findAll());
+    }
 
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -41,6 +57,20 @@ public class ControllerServlet extends HttpServlet {
         // if category page is requested
         if (userPath.equals("/categorie")) {
             // TODO: Implement category request
+            
+            // get categoryId from request
+            String idCategorie = request.getQueryString();
+
+            if (idCategorie != null) {
+                // get selected category
+                categorieSelectionne = categorieFacade.find(Short.parseShort(idCategorie));
+                // place selected category in request scope
+                request.setAttribute("categorieSelectionne", categorieSelectionne);
+                // get all products for selected category
+                produitsParCategorie = categorieSelectionne.getProduitCollection();
+                // place category products in request scope
+                request.setAttribute("produitsParCategorie", produitsParCategorie);
+            }
 
         // if cart page is requested
         } else if (userPath.equals("/ajouterPanier")) {

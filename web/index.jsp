@@ -5,75 +5,42 @@
     Created on : 2017-08-23, 13:45:07
     Author     : A.Sashcov
 --%>
-<sql:query var="categories" dataSource="jdbc/cafePlusPlus">
+
+<%--<sql:query var="categories" dataSource="jdbc/cafePlusPlus">
     SELECT * FROM categorie
-</sql:query>
+</sql:query>--%>
 
 <!--HEADER PAR JSPF-->
 
 <div class="col-sm-4" >
     <div class="panel panel-default">
         <div class="panel-heading">
-            <b>Caf? Plus Plus</b><br />
+            <b>Café Plus Plus</b><br />
         </div>
         <div class="panel-body">
-            <p>Bienvenue ? notre site web!</p>
-            <!-- test to access context parameters -->
-            categoryImagePath: ${initParam.categoryImagePath}
-            productImagePath: ${initParam.productImagePath}
+            <p>Bienvenue à Café Plus Plus!</p>
+
         </div>
     </div>
 </div>
 
 <div class="col-sm-8">
     <div class="panel panel-default">
-        <c:forEach var="categories" items="${categories.rows}">
+        <c:forEach var="categories" items="${categories}">
             <div class="panel-heading">
-                <a href="categorie?${categories.id}">
+                <a href="categorie?${categories.id}" />
 
                     <span class="categoryLabelText">${categories.nom}</span>
-            </div>
-
-            </a>
+            </div> </a>
 
             <div class="panel-body">
                 <p><img src="${initParam.cheminImageCategorie}${categories.image}.png"
                         alt="${categories.nom}"></p>
             </div>
-    </c:forEach>
-    <!--<div class="panel-heading">
-        <a href="#">
-            <span class="categoryLabelText">Espresso</span>
-        </a>
+        </c:forEach>
+
     </div>
-    <div class="panel-body">
-        <p>Description</p>
-    </div>
-    <div class="panel-heading">
-        <a href="#">
-            <span class="categoryLabelText">Caf? Brass?</span>
-        </a>
-    </div>
-    <div class="panel-body">
-        <p>Description</p>
-    </div>
-    <div class="panel-heading">
-        <a href="#">
-            <span class="categoryLabelText">Caf? Aromatis?</span>
-        </a>
-    </div>
-    <div class="panel-body">
-        <p>Description</p>
-    </div>
-    <div class="panel-heading">
-        <a href="#">
-            <span class="categoryLabelText">Autres</span>
-        </a>
-    </div>
-    <div class="panel-body">
-        <p>Description</p>
-    </div>-->
 </div>
-</div>
+
 
 <!--FOOTER PAR JSPF-->
