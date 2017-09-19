@@ -10,6 +10,13 @@
         <param-name>cheminImageCategorie</param-name>
         <param-value>img/categories/</param-value>
     </context-param>
+    
+    <context-param>
+        <description>Frais de livraison</description>
+        <param-name>fraisLivraison</param-name>
+        <param-value>3.00</param-value>
+    </context-param>
+    
     <session-config>
         <session-timeout>
             30

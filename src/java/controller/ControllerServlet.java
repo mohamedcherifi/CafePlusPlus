@@ -111,15 +111,17 @@ public class ControllerServlet extends HttpServlet {
 
         String userPath = request.getServletPath();
 
-        // if addToCart action is called
+        
         if (userPath.equals("/ajouterPanier")) {
             // TODO: Implement add product to cart action
+            
+             userPath = "/panier";
 
-        // if updateCart action is called
+        
         } else if (userPath.equals("/majPanier")) {
             // TODO: Implement update cart action
 
-        // if purchase action is called
+        
         } else if (userPath.equals("/acheter")) {
             // TODO: Implement purchase action
 

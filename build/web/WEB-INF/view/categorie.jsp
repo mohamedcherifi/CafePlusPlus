@@ -92,7 +92,7 @@
                                     ${produit.prix}$ /unité
                                 </td>
                                 <td>
-                                    <form action="addToCart" method="post" >
+                                    <form action="ajouterPanier" method="post" >
                                         <input type="hidden"
                                                name="productId"
                                                value="${produit.id}">
