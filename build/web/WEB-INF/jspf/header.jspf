@@ -28,7 +28,7 @@
                     <ul class="nav nav-pills pull-right">
 
                        <li><a href="#">Changer la langue</a></li>
-                       <li><a href="#">Passer la commande</a></li>
+                       <li><a href="confirmation">Passer la commande</a></li>
                        <li><a href="ajouterPanier"><span class="glyphicon glyphicon-shopping-cart"></span> Mon panier <span class="label label-primary">0</span> </a></li>
                     </ul>
                  </div>

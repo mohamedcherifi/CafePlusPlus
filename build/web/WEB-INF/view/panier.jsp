@@ -102,6 +102,28 @@
           </tr>
 
         </c:forEach>
+                           
+        <c:forEach var="cartItem" items="${panier.items}" varStatus="iter">
+
+         <c:set var="product" value="${panier.product}"/>
+
+           <tr class="${((iter.index % 2) == 0) ? 'lightBlue' : 'white'}">
+               <td>
+                   <img src="${initParam.productImagePath}${product.name}.png"
+                        alt="${product.name}">
+               </td>
+
+               <td>${product.nom}</td>
+
+               <td>
+                   &euro; ${panier.total}
+                   <br>
+                   <span class="smallText">( &euro; ${produit.prix} / unit )</span>
+               </td>
+               ...
+           </tr>
+
+       </c:forEach>
 
       </table>
 

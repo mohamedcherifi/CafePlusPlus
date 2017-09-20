@@ -5,6 +5,7 @@
  */
 package controller;
 
+import cart.ShoppingCart;
 import entity.Categorie;
 import entity.Produit;
 import java.io.IOException;
@@ -14,14 +15,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.ejb.EJB;
+import javax.servlet.http.HttpSession;
 import session.CategorieFacade;
+import session.ProduitFacade;
 
 /**
  *
  * @author A.Sashcov
  */
 @WebServlet(name = "ControllerServlet",  loadOnStartup = 1, urlPatterns = {"/categorie", "/ajouterPanier", "/visualiserPanier", "/majPanier", "/passerLaCommande", "/acheter", "/selectionnerLaLangue", "/confirmation",
-"/categorieBS", "/ajouterPanierBS", "/panierBS", "/majPanierBS", "/commandeBS", "/acheterBS", "/selectionnerLaLangueBS", "/confirmationBS", "/index"})
+"/categorieBS", "/ajouterPanierBS", "/panierBS", "/majPanierBS", "/commandeBS", "/acheterBS", "/selectionnerLaLangueBS", "/confirmationBS"})
 
 
 
@@ -32,6 +35,7 @@ public class ControllerServlet extends HttpServlet {
     private CategorieFacade categorieFacade;
     Categorie categorieSelectionne;
     Object produitsParCategorie;
+    private ProduitFacade produitFacade;
     
 
     @Override
@@ -110,16 +114,44 @@ public class ControllerServlet extends HttpServlet {
     throws ServletException, IOException {
 
         String userPath = request.getServletPath();
-
+        HttpSession session = request.getSession();
+        ShoppingCart cart = (ShoppingCart) session.getAttribute("cart");
         
         if (userPath.equals("/ajouterPanier")) {
             // TODO: Implement add product to cart action
+            
+            // if user is adding item to cart for first time
+            // create cart object and attach it to user session
+            if (cart == null) {
+
+                cart = new ShoppingCart();
+                session.setAttribute("cart", cart);
+            }
+
+            // get user input from request
+            String productId = request.getParameter("produitID");
+
+            if (!productId.isEmpty()) {
+
+                Produit product;
+                product = produitFacade.find(Integer.parseInt(productId));
+                cart.addItem(product);
+            }
             
              userPath = "/panier";
 
         
         } else if (userPath.equals("/majPanier")) {
             // TODO: Implement update cart action
+            
+             // get input from request
+            String productId = request.getParameter("id");
+            String quantity = request.getParameter("quantite");
+
+            Produit product = produitFacade.find(Integer.parseInt(productId));
+            cart.update(product, quantity);
+
+            userPath = "/panier";
 
         
         } else if (userPath.equals("/acheter")) {
