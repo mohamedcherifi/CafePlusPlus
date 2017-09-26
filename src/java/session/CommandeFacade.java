@@ -24,6 +24,13 @@ public class CommandeFacade extends AbstractFacade<Commande> {
     protected EntityManager getEntityManager() {
         return em;
     }
+    
+     // overridden - refresh method called to retrieve order id from database
+    /*public CustomerOrder find(Object id) {
+        CustomerOrder order = em.find(CustomerOrder.class, id);
+        em.refresh(order);
+        return order;
+    }*/
 
     public CommandeFacade() {
         super(Commande.class);

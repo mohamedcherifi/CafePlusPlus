@@ -9,15 +9,20 @@ import cart.ShoppingCart;
 import entity.Categorie;
 import entity.Produit;
 import java.io.IOException;
+import java.util.Collection;
+import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.ejb.EJB;
+import javax.servlet.ServletConfig;
 import javax.servlet.http.HttpSession;
 import session.CategorieFacade;
+import session.OrderManager;
 import session.ProduitFacade;
+import validate.Validator;
 
 /**
  *
@@ -33,16 +38,25 @@ public class ControllerServlet extends HttpServlet {
     
     @EJB
     private CategorieFacade categorieFacade;
+    
+    @EJB
+    private OrderManager orderManager;
+    
+    
     Categorie categorieSelectionne;
     Object produitsParCategorie;
     private ProduitFacade produitFacade;
     
+     private String surcharge;
+    
 
     @Override
-     public void init() throws ServletException {
+     public void init(ServletConfig servletConfig) throws ServletException {
 
+         super.init(servletConfig);
         // store category list in servlet context
         getServletContext().setAttribute("categories", categorieFacade.findAll());
+         surcharge = servletConfig.getServletContext().getInitParameter("deliverySurcharge");
     }
 
     /**
@@ -56,7 +70,10 @@ public class ControllerServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
 
-        String userPath = request.getServletPath();
+         String userPath = request.getServletPath();
+        HttpSession session = request.getSession();
+        Categorie categorieSelectionne;
+        Collection<Produit> categoryProducts;
 
         // if category page is requested
         if (userPath.equals("/categorie")) {
@@ -79,16 +96,42 @@ public class ControllerServlet extends HttpServlet {
         // if cart page is requested
         } else if (userPath.equals("/ajouterPanier")) {
             // TODO: Implement cart page request
+            
+            String clear = request.getParameter("clear");
+
+             if ((clear != null) && clear.equals("true")) {
+
+                ShoppingCart cart = (ShoppingCart) session.getAttribute("cart");
+                cart.clear();
+            }
 
             userPath = "/panier";
 
         // if checkout page is requested
         } else if (userPath.equals("/passerLaCommande")) {
             // TODO: Implement checkout page request
+            
+            ShoppingCart cart = (ShoppingCart) session.getAttribute("cart");
+
+            // calculate total
+            cart.calculateTotal(surcharge);
 
         // if user switches language
         } else if (userPath.equals("/selectionnerLaLangue")) {
             // TODO: Implement language request
+            
+               String language = request.getParameter("language");
+
+            // place in request scope
+            request.setAttribute("language", language);
+
+            // forward request to welcome page
+            try {
+                request.getRequestDispatcher("/index.jsp").forward(request, response);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+            return;
 
         }
 
@@ -113,9 +156,13 @@ public class ControllerServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
 
+        request.setCharacterEncoding("UTF-8");
+        
         String userPath = request.getServletPath();
         HttpSession session = request.getSession();
         ShoppingCart cart = (ShoppingCart) session.getAttribute("cart");
+        
+        Validator validator = new Validator();
         
         if (userPath.equals("/ajouterPanier")) {
             // TODO: Implement add product to cart action
@@ -148,15 +195,73 @@ public class ControllerServlet extends HttpServlet {
             String productId = request.getParameter("id");
             String quantity = request.getParameter("quantite");
 
-            Produit product = produitFacade.find(Integer.parseInt(productId));
-            cart.update(product, quantity);
+           
+          
+
+            boolean invalidEntry = validator.validateQuantity(productId, quantity);
+
+                if (!invalidEntry) {
+
+                Produit product = produitFacade.find(Integer.parseInt(productId));
+                cart.update(product, quantity);
+            }
 
             userPath = "/panier";
 
         
         } else if (userPath.equals("/acheter")) {
             // TODO: Implement purchase action
+ if (cart != null) {
 
+                // extract user data from request
+                String name = request.getParameter("name");
+                String email = request.getParameter("email");
+                String phone = request.getParameter("phone");
+                String address = request.getParameter("address");
+                String cityRegion = request.getParameter("cityRegion");
+                String ccNumber = request.getParameter("creditcard");
+
+                // validate user data
+                boolean validationErrorFlag = false;
+                validationErrorFlag = validator.validateForm(name, email, phone, address, cityRegion, ccNumber, request);
+
+                // if validation error found, return user to checkout
+                if (validationErrorFlag == true) {
+                    request.setAttribute("validationErrorFlag", validationErrorFlag);
+                    userPath = "/checkout";
+
+                    // otherwise, save order to database
+                } else {
+
+                    int orderId = orderManager.placeOrder(name, email, phone, address, cityRegion, ccNumber, cart);
+
+                    // if order processed successfully send user to confirmation page
+                    if (orderId != 0) {
+
+                        // dissociate shopping cart from session
+                        cart = null;
+
+                        // end session
+                        session.invalidate();
+
+                        // get order details
+                        Map orderMap = orderManager.getOrderDetails(orderId);
+
+                        // place order details in request scope
+                        request.setAttribute("customer", orderMap.get("customer"));
+                        request.setAttribute("products", orderMap.get("products"));
+                        request.setAttribute("orderRecord", orderMap.get("orderRecord"));
+                        request.setAttribute("orderedProducts", orderMap.get("orderedProducts"));
+
+                        userPath = "/confirmation";
+
+                    // otherwise, send back to checkout page and display error
+                    } else {
+                        userPath = "/checkout";
+                        request.setAttribute("orderFailureFlag", true);
+                    }
+                }
+            }
             userPath = "/confirmation";
         }
 

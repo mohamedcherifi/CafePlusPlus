@@ -6,9 +6,11 @@
 package session;
 
 import entity.CommandeHasProduit;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import entity.Produit;
 
 /**
  *
@@ -27,6 +29,13 @@ public class CommandeHasProduitFacade extends AbstractFacade<CommandeHasProduit>
 
     public CommandeHasProduitFacade() {
         super(CommandeHasProduit.class);
+    }
+    
+   
+    /*TODO: A VOIR*/
+    // manually created
+    public List<CommandeHasProduit> findByOrderId(Object id) {
+        return em.createNamedQuery("Produit.findByCustomerOrderId").setParameter("customerOrderId", id).getResultList();
     }
     
 }
