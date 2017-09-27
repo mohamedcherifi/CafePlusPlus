@@ -45,6 +45,8 @@ public class ControllerServlet extends HttpServlet {
     
     Categorie categorieSelectionne;
     Object produitsParCategorie;
+    
+    @EJB
     private ProduitFacade produitFacade;
     
      private String surcharge;
@@ -176,7 +178,7 @@ public class ControllerServlet extends HttpServlet {
             }
 
             // get user input from request
-            String productId = request.getParameter("produitID");
+            String productId = request.getParameter("produitId");
 
             if (!productId.isEmpty()) {
 

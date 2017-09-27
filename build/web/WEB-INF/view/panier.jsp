@@ -66,26 +66,26 @@
 
         <c:forEach var="panierItem" items="${panier.items}" varStatus="iter">
 
-          <c:set var="product" value="${panierItem.produit}"/>
+          <c:set var="produit" value="${panierItem.produit}"/>
 
           <tr class="${((iter.index % 2) == 0) ? 'lightBlue' : 'white'}">
             <td>
-              <img src="${initParam.cheminImageProduits}${product.image}.png"
+              <img src="${initParam.cheminImageProduits}${produit.image}.png"
                    alt="${produit.nom}">
             </td>
 
-            <td>${product.name}</td>
+            <td>${produit.nom}</td>
 
             <td>
                 &dollar; ${panierItem.total}
                 <br>
-                <span class="smallText">( &dollar; ${product.price} / unité )</span>
+                <span class="smallText">( &dollar; ${produit.prix} / unité )</span>
             </td>
 
             <td>
                 <form action="majPanier" method="post">
                     <input type="hidden"
-                           name="produitID"
+                           name="produitId"
                            value="${produit.id}">
                     <input type="text"
                            maxlength="2"
@@ -105,20 +105,20 @@
                            
         <c:forEach var="cartItem" items="${panier.items}" varStatus="iter">
 
-         <c:set var="product" value="${panier.product}"/>
+         <c:set var="produit" value="${panier.produit}"/>
 
            <tr class="${((iter.index % 2) == 0) ? 'lightBlue' : 'white'}">
                <td>
-                   <img src="${initParam.productImagePath}${product.name}.png"
-                        alt="${product.name}">
+                   <img src="${initParam.cheminImageProduits}${produit.image}.png"
+                        alt="${produit.nom}">
                </td>
 
-               <td>${product.nom}</td>
+               <td>${produit.nom}</td>
 
                <td>
                    &euro; ${panier.total}
                    <br>
-                   <span class="smallText">( &euro; ${produit.prix} / unit )</span>
+                   <span class="smallText">( &dollar; ${produit.prix} / unit )</span>
                </td>
                ...
            </tr>

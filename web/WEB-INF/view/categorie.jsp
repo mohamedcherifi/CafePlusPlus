@@ -94,7 +94,7 @@
                                 <td>
                                     <form action="ajouterPanier" method="post" >
                                         <input type="hidden"
-                                               name="productId"
+                                               name="produitId"
                                                value="${produit.id}">
                                         <input type="submit" class="btn btn-primary"
                                                value="Ajouter au panier">
