@@ -42,14 +42,14 @@ public class ControllerServlet extends HttpServlet {
     @EJB
     private OrderManager orderManager;
     
-    
     Categorie categorieSelectionne;
+    
     Object produitsParCategorie;
     
     @EJB
     private ProduitFacade produitFacade;
     
-     private String surcharge;
+    private String surcharge;
     
 
     @Override
@@ -96,7 +96,7 @@ public class ControllerServlet extends HttpServlet {
             }
 
         // if cart page is requested
-        } else if (userPath.equals("/ajouterPanier")) {
+        } else if (userPath.equals("/visualiserPanier")) {
             // TODO: Implement cart page request
             
             String clear = request.getParameter("clear");
@@ -162,50 +162,48 @@ public class ControllerServlet extends HttpServlet {
         
         String userPath = request.getServletPath();
         HttpSession session = request.getSession();
-        ShoppingCart cart = (ShoppingCart) session.getAttribute("cart");
+        ShoppingCart panier = (ShoppingCart) session.getAttribute("panier");
         
         Validator validator = new Validator();
         
         if (userPath.equals("/ajouterPanier")) {
-            // TODO: Implement add product to cart action
             
             // if user is adding item to cart for first time
             // create cart object and attach it to user session
-            if (cart == null) {
+            if (panier == null) {
 
-                cart = new ShoppingCart();
-                session.setAttribute("cart", cart);
+                panier = new ShoppingCart();
+                session.setAttribute("panier", panier);
             }
 
             // get user input from request
-            String productId = request.getParameter("produitId");
+            String produitId = request.getParameter("produitId");
 
-            if (!productId.isEmpty()) {
+            if (!produitId.isEmpty()) {
 
-                Produit product;
-                product = produitFacade.find(Integer.parseInt(productId));
-                cart.addItem(product);
+                Produit produit = produitFacade.find(Integer.parseInt(produitId));
+                panier.addItem(produit);
             }
-            
-             userPath = "/panier";
+
+            userPath = "/categorie";
 
         
         } else if (userPath.equals("/majPanier")) {
             // TODO: Implement update cart action
             
              // get input from request
-            String productId = request.getParameter("id");
+            String produitId = request.getParameter("id");
             String quantity = request.getParameter("quantite");
 
            
           
 
-            boolean invalidEntry = validator.validateQuantity(productId, quantity);
+            boolean invalidEntry = validator.validateQuantity(produitId, quantity);
 
                 if (!invalidEntry) {
 
-                Produit product = produitFacade.find(Integer.parseInt(productId));
-                cart.update(product, quantity);
+                Produit product = produitFacade.find(Integer.parseInt(produitId));
+                panier.update(product, quantity);
             }
 
             userPath = "/panier";
@@ -213,7 +211,7 @@ public class ControllerServlet extends HttpServlet {
         
         } else if (userPath.equals("/acheter")) {
             // TODO: Implement purchase action
- if (cart != null) {
+                if (panier != null) {
 
                 // extract user data from request
                 String name = request.getParameter("name");
@@ -235,13 +233,13 @@ public class ControllerServlet extends HttpServlet {
                     // otherwise, save order to database
                 } else {
 
-                    int orderId = orderManager.placeOrder(name, email, phone, address, cityRegion, ccNumber, cart);
+                    int orderId = orderManager.placeOrder(name, email, phone, address, cityRegion, ccNumber, panier);
 
                     // if order processed successfully send user to confirmation page
                     if (orderId != 0) {
 
                         // dissociate shopping cart from session
-                        cart = null;
+                        panier = null;
 
                         // end session
                         session.invalidate();

@@ -1,13 +1,13 @@
 <div id="singleColumn">
 
-    <h2>checkout</h2>
+    <h2>Passer la commande</h2>
 
-    <p>In order to purchase the items in your shopping cart, please provide us with the following information:</p>
+    <p>Remplissez le formulaire pour acheter vos items:</p>
 
     <form action="purchase" method="post">
         <table id="checkoutTable">
             <tr>
-                <td><label for="name">name:</label></td>
+                <td><label for="name">Nom:</label></td>
                 <td class="inputField">
                     <input type="text"
                            size="31"
@@ -18,7 +18,7 @@
                 </td>
             </tr>
             <tr>
-                <td><label for="email">email:</label></td>
+                <td><label for="email">Email:</label></td>
                 <td class="inputField">
                     <input type="text"
                            size="31"
@@ -29,7 +29,7 @@
                 </td>
             </tr>
             <tr>
-                <td><label for="phone">phone:</label></td>
+                <td><label for="phone">Téléphone:</label></td>
                 <td class="inputField">
                     <input type="text"
                            size="31"
@@ -40,7 +40,7 @@
                 </td>
             </tr>
             <tr>
-                <td><label for="address">address:</label></td>
+                <td><label for="address">Adresse:</label></td>
                 <td class="inputField">
                     <input type="text"
                            size="31"
@@ -60,7 +60,7 @@
                 </td>
             </tr>
             <tr>
-                <td><label for="creditcard">credit card number:</label></td>
+                <td><label for="creditcard">Numéro de carte de crédit:</label></td>
                 <td class="inputField">
                     <input type="text"
                            size="31"
